@@ -7,7 +7,7 @@ to practice file I/O, data manipulation, and report generation.
 """
 
 import csv
-
+import io
 
 def read_csv_file(filepath):
     """
@@ -16,14 +16,24 @@ def read_csv_file(filepath):
     # TODO: Your code here
     # Hint: Use csv.DictReader to read CSV files into dictionaries
     # Hint: Remember to use 'with open()' for proper file handling
-    pass
+    rows = []
+    with io.open(filepath, "r") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            rows.append(row)
+    return rows
+
 
 
 def count_records(data_list):
     """Counts the number of records in a dataset."""
     # TODO: Your code here
     # Hint: Use the len() function
-    pass
+    with io.open(data_list, "r") as f:
+        reader =  csv.DictReader(f)
+        return sum(1 for _ in reader)
+
+    print(count_records(data_list))
 
 
 def get_unique_values(data_list, field_name):
@@ -31,7 +41,7 @@ def get_unique_values(data_list, field_name):
     # TODO: Your code here
     # Hint: Use a set to collect unique values
     # Hint: Convert the set to a list and sort it before returning
-    pass
+    with io.open(data_list, field_name) as f:
 
 
 def filter_by_field(data_list, field_name, field_value):
@@ -98,7 +108,21 @@ def format_header(title):
 if __name__ == '__main__':
     print("Testing report functions...")
     print("Implement functions above, then uncomment test code below")
-    
-    # # Test read_csv_file
-    # pilots = read_csv_file('../data/pilots.csv')
+
+    # Test read_csv_file
+    # pilots = read_csv_file('./data/pilots.csv')
     # print(f"Loaded {len(pilots)} pilots")
+
+    # aircraft = read_csv_file('./data/aircraft.csv')
+    # print(f"Loaded {len(aircraft)} aircraft")
+
+    # flight_logs = read_csv_file('./data/flight_logs.csv')
+    # print(f"Loaded {len(flight_logs)} flight_logs")
+
+    # Test count_records
+    # print(count_records("./data/pilots.csv"))
+    # print(count_records("./data/flight_logs.csv"))
+    # print(count_records("./data/aircraft.csv"))
+
+    # Test get_unique_values
+
